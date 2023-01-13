@@ -6,6 +6,7 @@ import type {
   MediaAttachment,
   Poll,
   PreviewCard,
+  Reaction,
   Tag,
 } from '.';
 
@@ -104,4 +105,9 @@ export interface Status {
   bookmarked?: boolean | null;
   /** Have you pinned this status? Only appears if the status is pin-able. */
   pinned?: boolean | null;
+
+  /** Reactions to this status. */
+  reactions: Reaction[];
+  /** The status this status quotes. */
+  quote?: Status | null;
 }

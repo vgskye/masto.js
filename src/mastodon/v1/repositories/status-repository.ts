@@ -26,6 +26,8 @@ export interface CreateStatusParamsBase {
   readonly visibility?: StatusVisibility | null;
   /** ISO 639 language code for this status. */
   readonly language?: string | null;
+  /** ID of the status being quoted, if status is a quote toot */
+  readonly QuoteId?: string | null;
 }
 
 export interface CreateStatusExtraParams {
@@ -320,5 +322,28 @@ export class StatusRepository implements Repository<Status> {
   @version({ since: '3.5.0' })
   fetchSource(id: string): Promise<StatusSource> {
     return this.http.get(`/api/v1/statuses/${id}/source`);
+  }
+
+  /**
+   * Add a reaction to a status
+   * @param id ID of the status
+   * @param name Emoji string
+   * @return N/A
+   * @see https://github.com/glitch-soc/mastodon/pull/1980
+   */
+  addReaction(id: string, name: string): Promise<void> {
+    return this.http.post<void>(`/api/v1/statuses/${id}/react/${name}`);
+  }
+
+  /**
+   * Remove a reaction from a status
+   * @param id ID of the status
+   * @param name Emoji string
+   * @return N/A
+   * @see https://github.com/glitch-soc/mastodon/pull/1980
+   */
+  removeReaction(id: string, name: string): Promise<void> {
+    /* cspell:disable-next-line */
+    return this.http.post<void>(`/api/v1/statuses/${id}/unreact/${name}`);
   }
 }
