@@ -3,7 +3,7 @@ import { version } from '../../../decorators/version';
 import type { Http } from '../../../http';
 import type { Logger } from '../../../logger';
 import { Paginator } from '../../../paginator';
-import type { DefaultPaginationParams, Repository } from '../../repository';
+import type { DefaultPaginationParams } from '../../repository';
 import type {
   Account,
   AccountCredentials,
